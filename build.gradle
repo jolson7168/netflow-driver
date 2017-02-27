@@ -1,0 +1,63 @@
+buildscript {
+
+    ext {
+        versions = [
+                ScalaVersion: '2.11',
+                ScalaMajorMinorVersion: '2.11.8',
+                SparkVersion: '2.1.0',
+        ]
+        pluginDeps = [
+
+        ]
+        deps = [
+                scalaLibrary: "org.scala-lang:scala-library:${versions.ScalaMajorMinorVersion}",
+                sparkCore: "org.apache.spark:spark-core_${versions.ScalaVersion}:${versions.SparkVersion}",
+                sparkSQL: "org.apache.spark:spark-sql_${versions.ScalaVersion}:${versions.SparkVersion}",
+                junit: 'junit:junit:4.12',
+                jcommander: 'com.beust:jcommander:1.60',
+                //slf4jApi: 'org.slf4j:slf4j-api:latest.release'
+        ]
+
+    }
+
+    repositories {
+        // Use 'jcenter' for resolving your dependencies.
+        // You can declare any Maven/Ivy/file repository here.
+        jcenter()
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/spark-packages/maven/"
+        }
+    }
+
+
+    dependencies {
+        classpath 'net.saliman:gradle-properties-plugin:1.4.6'
+    }
+
+}
+
+apply plugin: 'base'
+
+
+allprojects {
+    apply plugin: 'net.saliman.properties'
+
+    repositories {
+        // Use 'jcenter' for resolving your dependencies.
+        // You can declare any Maven/Ivy/file repository here.
+        jcenter()
+        mavenCentral()
+        maven {
+            url "https://dl.bintray.com/spark-packages/maven/"
+        }
+    }
+
+    pluginManager.withPlugin("scala") {
+        sourceSets.main {
+            scala.srcDir "src/main/java"
+            java.srcDirs = []
+        }
+    }
+
+}
