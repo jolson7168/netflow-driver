@@ -1,24 +1,23 @@
 package com.ocient.netflowdriver.queries;
 
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.Parameters;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 import java.io.Serializable;
 
-public final class NetFlowArgs implements Serializable, Cloneable
+@Parameters(separators="=")
+public final class NetFlowArgs implements Serializable {
 
-{
     private static final long serialVersionUID = 1L;
 
-    @Parameter(names = { "--cassandra-host" })
-    public String cassandraHost = "localhost:2181";
+    @Parameter(names = { "--local_ip" })
+    public Long local_ip = 0L;
 
-    @Parameter(names = { "--keyspace" })
-    public String keyspace = "netflow";
-
-    @Parameter(names = { "--table" })
-    public String table = "connections";
+    @Parameter(names = { "--remote_ip" })
+    public Long remote_ip = 0L;
 
     @Override
     public String toString() {
@@ -26,4 +25,5 @@ public final class NetFlowArgs implements Serializable, Cloneable
             return new ObjectMapper().writeValueAsString(this);
         } catch (JsonProcessingException e) { throw new RuntimeException(); }
     }
+
 }

@@ -18,3 +18,5 @@ include 'services:webservice'
 
 rootProject.name = 'netflow-driver'
 include ':code:queries:testQuery01'
+include ':code:queries:testQuery02'
+include ':code:queries:sparkSQL'

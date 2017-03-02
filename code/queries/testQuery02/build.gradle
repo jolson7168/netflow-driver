@@ -1,13 +1,13 @@
 group 'com.ocient.netflowdriver.queries'
-ext.archivesBaseName = 'test-query01'
+ext.archivesBaseName = 'test-query02'
 version '1.0-SNAPSHOT'
 
 
 dependencies {
 
-    compileOnly deps.scalaLibrary
-    compileOnly deps.sparkCore
-    compileOnly deps.sparkSQL
+    compile deps.scalaLibrary
+    compile deps.sparkCore
+    compile deps.sparkSQL
     compile deps.jcommander
     compile group: 'datastax', name: 'spark-cassandra-connector', version: '2.0.0-M2-s_2.11'
     //testCompile deps.junit
@@ -19,12 +19,11 @@ dependencies {
 }
 
 task run(type:JavaExec) {
-    main = 'com.ocient.netflowdriver.queries.QueryTest01'
+    main = 'com.ocient.netflowdriver.queries.QueryTest02'
     classpath sourceSets.main.runtimeClasspath
 
-    args "--cassandra-host=${project.properties.getOrDefault('cassandra-host', '10.211.55.69:')}",
-            "--keyspace=${project.properties.getOrDefault('keyspace', 'netflow')}",
-            "--table=${project.properties.getOrDefault('table', 'connections')}"
+    args "--local_ip=${project.properties.getOrDefault('local_ip', 167864307)}",
+            "--remote_ip=${project.properties.getOrDefault('remote_ip', 1109836649)}"
 
 }
 
@@ -33,6 +32,6 @@ jar {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
     manifest {
-        attributes 'Main-Class': 'com.ocient.netflowdriver.queries.QueryTest01'
+        attributes 'Main-Class': 'com.ocient.netflowdriver.queries.QueryTest02'
     }
 }

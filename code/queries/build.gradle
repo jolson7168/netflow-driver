@@ -1,0 +1,49 @@
+subprojects {
+    apply plugin: 'maven-publish'
+    apply plugin: 'java'
+    apply plugin: 'scala'
+
+    jar {
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+        manifest {
+            attributes 'Main-Class': 'com.ocient.netflowdriver.queries.QueryTest02'
+        }
+    }
+
+
+
+    publishing.repositories {
+        ['release', 'iteration', 'sprint', 'manual'].each { ciRepoName ->
+            maven {
+                name = "ci${ciRepoName.capitalize()}"
+                url = "https://packages.ocient.local/nexus/repository/maven-ci-$ciRepoName/"
+                credentials {
+                    username project.properties.get('ocientNexusUser', 'UNKNOWN')
+                    password project.properties.get('ocientNexusPassword', 'UNKNOWN')
+                }
+            }
+        }
+    }
+
+    project.afterEvaluate {
+        publishing.publications {
+            release(MavenPublication) {
+                groupId project.group
+                artifactId project.archivesBaseName
+
+                artifact jar
+            }
+
+            snapshot(MavenPublication) {
+                groupId publishing.publications.release.groupId
+                artifactId publishing.publications.release.artifactId
+                version = "${project.version}-SNAPSHOT"
+
+                artifact jar
+            }
+        }
+    }
+
+}

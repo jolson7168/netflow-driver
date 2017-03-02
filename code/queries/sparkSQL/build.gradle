@@ -1,5 +1,5 @@
 group 'com.ocient.netflowdriver.queries'
-ext.archivesBaseName = 'test-query01'
+ext.archivesBaseName = 'sparkSQL'
 version '1.0-SNAPSHOT'
 
 
@@ -19,7 +19,7 @@ dependencies {
 }
 
 task run(type:JavaExec) {
-    main = 'com.ocient.netflowdriver.queries.QueryTest01'
+    main = 'com.ocient.netflowdriver.queries.sparksql.QueryTest01'
     classpath sourceSets.main.runtimeClasspath
 
     args "--cassandra-host=${project.properties.getOrDefault('cassandra-host', '10.211.55.69:')}",
@@ -29,10 +29,7 @@ task run(type:JavaExec) {
 }
 
 jar {
-    zip64 true
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
     manifest {
-        attributes 'Main-Class': 'com.ocient.netflowdriver.queries.QueryTest01'
+        attributes 'Main-Class': 'com.ocient.netflowdriver.queries.sparksql.QueryTest01'
     }
 }
