@@ -7,7 +7,7 @@ dependencies {
 
     compile deps.scalaLibrary
     compile deps.sparkCore
-    compile deps.sparkSQL
+    //compile deps.sparkSQL
     compile deps.jcommander
     compile group: 'datastax', name: 'spark-cassandra-connector', version: '2.0.0-M2-s_2.11'
     //testCompile deps.junit
