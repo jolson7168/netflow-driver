@@ -16,6 +16,9 @@ public final class NetFlowArgs implements Serializable {
     @Parameter(names = { "--local_ip" })
     public Long local_ip = 0L;
 
+    @Parameter(names = { "--local_port" })
+    public Long local_port = 0L;
+
     @Parameter(names = { "--remote_ip" })
     public Long remote_ip = 0L;
 

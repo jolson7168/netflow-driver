@@ -7,7 +7,7 @@ dependencies {
 
     compile deps.scalaLibrary
     compile deps.sparkCore
-    //compile deps.sparkSQL
+    compile deps.sparkSQL
     compile deps.jcommander
     compile group: 'datastax', name: 'spark-cassandra-connector', version: '2.0.0-M2-s_2.11'
     //testCompile deps.junit
@@ -22,8 +22,9 @@ task run(type:JavaExec) {
     main = 'com.ocient.netflowdriver.queries.QueryTest02'
     classpath sourceSets.main.runtimeClasspath
 
-    args "--local_ip=${project.properties.getOrDefault('local_ip', 167864307)}",
-            "--remote_ip=${project.properties.getOrDefault('remote_ip', 1109836649)}"
+    args "--local_ip=${project.properties.getOrDefault('local_ip', 0)}",
+            "--local_port=${project.properties.getOrDefault('local_port', 0)}",
+            "--remote_ip=${project.properties.getOrDefault('remote_ip', 0)}"
 
 }
 
